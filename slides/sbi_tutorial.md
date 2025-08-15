@@ -133,7 +133,7 @@ Speaker notes:
 **You're a data scientist for a regional environmental agency**
 
 Your challenge:
-- Monitor wolf 🐺 and deer 🦌 populations  
+- Monitor wolf 🐺 and deer 🦌 populations
 - Limited resources: monthly reports only
 - Summary statistics: average & peak populations
 - Need to infer continuous dynamics
@@ -147,7 +147,7 @@ Your challenge:
 ```python
 # Your monthly reports
 Month 1: 🦌 avg: 45, peak: 52
-Month 2: 🦌 avg: 38, peak: 48  
+Month 2: 🦌 avg: 38, peak: 48
 Month 3: 🦌 avg: 31, peak: 40
 Month 4: 🦌 avg: 35, peak: 43
 Month 5: 🦌 avg: 42, peak: 50
@@ -179,7 +179,7 @@ Speaker notes:
 ```python
 # Grid search or optimization
 best_params = optimize(
-    simulator, 
+    simulator,
     observed_data
 )
 ```
@@ -196,7 +196,7 @@ best_params = optimize(
 ```
 α* = 0.52  # Birth rate
 β* = 0.024 # Predation
-δ* = 0.011 # Efficiency  
+δ* = 0.011 # Efficiency
 γ* = 0.48  # Death rate
 ```
 
@@ -269,7 +269,7 @@ Speaker notes:
 
 <br>
 
-> **Goal:** `p(parameters | observation)` 
+> **Goal:** `p(parameters | observation)`
 > The probability distribution of parameters given what we observed
 
 <!--
@@ -293,7 +293,7 @@ Speaker notes:
 
 **For complex simulators:**
 - 🎲 **Stochastic:** Different output each run
-- 📦 **Black-box:** No analytical likelihood `p(x|θ)` 
+- 📦 **Black-box:** No analytical likelihood `p(x|θ)`
 - 🐌 **Slow:** Can't evaluate millions of times
 
 </div>
@@ -326,7 +326,7 @@ Speaker notes:
 
 **Key insight:** Turn inference into supervised learning!
 - No likelihood needed ✓
-- Works with any simulator ✓  
+- Works with any simulator ✓
 - Learns from examples ✓
 
 </div>
@@ -358,7 +358,7 @@ Speaker notes:
 </div>
 <div>
 
-### 🔍 Exercise 2: Trust & Verify  
+### 🔍 Exercise 2: Trust & Verify
 **20 minutes**
 - Posterior predictive checks
 - Coverage diagnostics
@@ -405,7 +405,7 @@ Speaker notes:
 <div>
 
 ### 🧠 Modern: Neural Density Estimation
-- Efficient and scalable  
+- Efficient and scalable
 - Amortized inference
 - Handles high-D
 - Powers the `sbi` package
@@ -432,7 +432,7 @@ accepted_params = []
 
 for _ in range(n_simulations):
     θ = prior.sample()                    # 1. Sample parameters
-    x_sim = simulator(θ)                  # 2. Simulate data  
+    x_sim = simulator(θ)                  # 2. Simulate data
     if distance(x_sim, x_obs) < ε:       # 3. Accept if close
         accepted_params.append(θ)         # 4. Store accepted
 
@@ -598,7 +598,7 @@ Speaker notes:
 ## Three exercises, increasing complexity
 
 ### 📓 **Exercise 1:** First Inference (15 min)
-### 🔍 **Exercise 2:** Diagnostics (20 min)  
+### 🔍 **Exercise 2:** Diagnostics (20 min)
 ### 🎯 **Exercise 3:** Your Problem (20 min)
 
 <br>
@@ -623,7 +623,7 @@ Speaker notes:
 
 # Exercise 1: Your First Inference
 
-## Lotka-Volterra in 5 lines of code! 
+## Lotka-Volterra in 5 lines of code!
 
 ```python
 # The entire SBI workflow
@@ -632,7 +632,7 @@ from sbi import inference as sbi_inference
 # 1. Create inference object
 npe = sbi_inference.NPE(prior)
 
-# 2. Train on simulated data  
+# 2. Train on simulated data
 npe.train(simulator, num_simulations=10000)
 
 # 3. Build posterior for observation
@@ -675,7 +675,7 @@ Speaker notes:
 </div>
 <div>
 
-### 2. Coverage Test  
+### 2. Coverage Test
 - Test on synthetic data
 - Check calibration
 - 90% CI should contain truth 90% of time
@@ -703,7 +703,7 @@ Speaker notes:
 ### 🔬 **Option A: Your Simulator**
 If you brought one, we'll adapt it!
 
-### 🎾 **Option B: Ball Throw Physics**  
+### 🎾 **Option B: Ball Throw Physics**
 Simple projectile motion with air resistance
 
 ### 🦠 **Option C: SIR Epidemic Model**
@@ -801,14 +801,14 @@ Speaker notes:
 ### Methods
 - **Multi-round inference** (sequential)
 - **Model comparison** (NRE)
-- **Embedding networks** 
+- **Embedding networks**
 - **Likelihood methods** (NLE)
 - **Compositional inference**
 
 </div>
 <div>
 
-### Applications  
+### Applications
 - **High-dimensional problems**
 - **Expensive simulators**
 - **Missing data**

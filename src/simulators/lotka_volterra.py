@@ -16,8 +16,6 @@ Parameters:
 - γ: Wolf death rate
 """
 
-from typing import Union
-
 import numpy as np
 import torch
 from sbi.utils import BoxUniform
@@ -127,7 +125,7 @@ def summarize_simulation(
 
 
 def lotka_volterra_simulator(
-    params: Union[torch.Tensor, np.ndarray], use_autocorrelation: bool = False
+    params: torch.Tensor | np.ndarray, use_autocorrelation: bool = False
 ) -> torch.Tensor:
     """SBI-compatible simulator that returns summary statistics."""
     # Convert parameters to numpy array
@@ -147,7 +145,7 @@ def lotka_volterra_simulator(
         )
         return torch.tensor(summary_stats, dtype=torch.float32)
     except Exception as e:
-        raise RuntimeError(f"Simulation failed with parameters {params_np}: {e}")
+        raise RuntimeError(f"Simulation failed with parameters {params_np}: {e}") from e
 
 
 def get_summary_labels(use_autocorrelation: bool = False) -> list:

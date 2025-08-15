@@ -21,9 +21,3 @@ repos:
       - id: check-merge-conflict
       - id: check-added-large-files
       - id: mixed-line-ending
-
-  # Pyright type checking
-  - repo: https://github.com/RobertCraigie/pyright-python
-    rev: v1.1.380
-    hooks:
-      - id: pyright

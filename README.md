@@ -43,7 +43,7 @@ python -c "import sbi; import torch; print('✅ Setup complete!')"
   [link to EuroSciPy Talk](https://pretalx.com/euroscipy-2024/talk/893KBK/), [slides](materials/2024-08-30-EuroSciPy2024-SBI.pdf)
 - **Bring Your Simulator**: If you have a scientific simulator you'd like to apply SBI to, prepare a simplified version that:
   - Takes parameters as input (numpy array or torch tensor)
-  - Returns observations as output (numpy array or torch tensor)  
+  - Returns observations as output (numpy array or torch tensor)
   - Runs in < 1 second per simulation
   - Example: `def simulator(params): return observations`
 
@@ -56,7 +56,7 @@ If you have any issues with local setup, you can use our Google Colab notebooks 
 ### Part 1: Why SBI? (15 min)
 
 - The Environmental Monitoring Challenge
-- Point estimates vs. uncertainty quantification  
+- Point estimates vs. uncertainty quantification
 - When traditional methods fail
 
 ### Part 2: Core Intuition (10 min)

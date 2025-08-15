@@ -2,8 +2,8 @@
 
 ## Slide Deck Structure
 
-**Total slides: ~30-35**  
-**Font requirements: Min 17pt regular, 14pt for footnotes**  
+**Total slides: ~30-35**
+**Font requirements: Min 17pt regular, 14pt for footnotes**
 **Color scheme: Use color-blind friendly palette (e.g., Okabe-Ito)**
 
 ---
@@ -12,8 +12,8 @@
 
 ### Slide 1: Title Slide
 
-**Title:** Quantifying Uncertainty in Scientific Simulators with Neural Networks  
-**Subtitle:** A Hands-On Introduction to Simulation-Based Inference  
+**Title:** Quantifying Uncertainty in Scientific Simulators with Neural Networks
+**Subtitle:** A Hands-On Introduction to Simulation-Based Inference
 **Content:**
 
 - EuroSciPy 2025, Kraków
@@ -100,7 +100,7 @@
 **Visual:** Three connected boxes showing progression
 **Content:**
 1. **Quick Win (15 min)**: Run your first inference
-2. **Trust (20 min)**: Verify your results  
+2. **Trust (20 min)**: Verify your results
 3. **Apply (20 min)**: Your own simulator
 - "All code provided, focus on understanding"
 - "Bring your questions!"
@@ -220,7 +220,7 @@ print("Ready for SBI! 🚀")
 4. Visualize posterior
 **Time:** 15 minutes
 
-### Slide 18: Exercise 2 Overview  
+### Slide 18: Exercise 2 Overview
 **Title:** Diagnostic Tools
 **Visual:** Example diagnostic plots
 **Tools:**
@@ -259,7 +259,7 @@ print("Ready for SBI! 🚀")
 **Visual:** Warning signs icons
 **Content:**
 1. ⚠️ **Prior too wide**: Wasted simulations
-2. ⚠️ **Too few simulations**: Poor approximation  
+2. ⚠️ **Too few simulations**: Poor approximation
 3. ⚠️ **Ignoring diagnostics**: False confidence
 4. ⚠️ **Complex summary stats**: Information loss
 **Bottom:** "Always validate your results!"
@@ -344,7 +344,7 @@ print("Ready for SBI! 🚀")
 ### Visual Design Guidelines
 
 - **Color palette**: Use Okabe-Ito or Viridis (color-blind safe)
-- **Font sizes**: 
+- **Font sizes**:
   - Titles: 36-44pt
   - Body: 20-24pt
   - Code: 18-20pt (monospace)

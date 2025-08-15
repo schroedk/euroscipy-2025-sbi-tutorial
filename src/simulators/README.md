@@ -4,8 +4,8 @@ This directory contains three example simulators for the EuroSciPy 2025 SBI tuto
 
 ## 🐺🦌 Lotka-Volterra Model (`lotka_volterra.py`)
 
-**Domain**: Ecology / Population dynamics  
-**Story**: Environmental monitoring of wolf and deer populations  
+**Domain**: Ecology / Population dynamics
+**Story**: Environmental monitoring of wolf and deer populations
 **Complexity**: Medium (2 coupled ODEs)
 
 - **Parameters**: Birth rates, predation rates (4 params)
@@ -14,8 +14,8 @@ This directory contains three example simulators for the EuroSciPy 2025 SBI tuto
 
 ## 🎾 Ball Throw Physics (`ball_throw.py`)
 
-**Domain**: Physics / Projectile motion  
-**Story**: Analyzing sports trajectories (baseball, golf)  
+**Domain**: Physics / Projectile motion
+**Story**: Analyzing sports trajectories (baseball, golf)
 **Complexity**: Simple (basic physics with drag)
 
 - **Parameters**: Initial velocity, angle, friction (3-4 params)
@@ -24,8 +24,8 @@ This directory contains three example simulators for the EuroSciPy 2025 SBI tuto
 
 ## 🦠 SIR Epidemic Model (`sir_model.py`)
 
-**Domain**: Epidemiology / Disease spread  
-**Story**: Tracking disease outbreak in a community  
+**Domain**: Epidemiology / Disease spread
+**Story**: Tracking disease outbreak in a community
 **Complexity**: Medium (3 coupled ODEs)
 
 - **Parameters**: Infection rate, recovery rate, initial infected (3 params)
@@ -79,7 +79,7 @@ Each simulator can return additional data for visualization:
 # Ball trajectory
 obs, x_traj, y_traj = ball_throw_simulator(params, return_trajectory=True)
 
-# Epidemic time series  
+# Epidemic time series
 obs, time_series = sir_epidemic_simulator(params, return_time_series=True)
 
 # Plot results

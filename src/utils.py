@@ -5,20 +5,18 @@ This module contains helper functions for plotting posterior predictive
 distributions and other visualizations used in the tutorial.
 """
 
-from typing import TYPE_CHECKING
+from collections.abc import Callable
 
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-
-if TYPE_CHECKING:
-    from sbi.inference.posteriors.direct_posterior import DirectPosterior
+from sbi.inference.posteriors.direct_posterior import DirectPosterior
 
 
 def plot_posterior_predictions(
-    posterior: "DirectPosterior",
+    posterior: DirectPosterior,
     observed_data: torch.Tensor,
-    simulate_func: callable,
+    simulate_func: Callable,
     n_predictions: int = 1000,
     time_span: float = 200.0,
     dt: float = 0.1,
@@ -151,7 +149,7 @@ def print_summary_statistics(
     print("=" * 60)
 
     # Print the observed data in a more readable format
-    for label, value in zip(labels, observed_data):
+    for label, value in zip(labels, observed_data, strict=False):
         print(f"{label:18s}: {value:.2f}")
 
     print(f"\n📈 Total summary statistics: {len(observed_data)}")
