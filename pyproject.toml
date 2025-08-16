@@ -52,7 +52,6 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # unused imports in __init__.py
-"tests/**/*" = ["B011"]   # assert false warnings in tests
 
 [tool.ruff.format]
 quote-style = "double"
