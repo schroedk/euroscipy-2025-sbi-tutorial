@@ -39,8 +39,11 @@ python -c "import sbi; import torch; print('✅ Setup complete!')"
 
 ### 3. Optional but Recommended
 
-- **Read an intro to SBI**:
-  [link to EuroSciPy Talk](https://pretalx.com/euroscipy-2024/talk/893KBK/), [slides](materials/2024-08-30-EuroSciPy2024-SBI.pdf)
+- **Read a bit about SBI**:
+  - [Last year's EuroSciPy Talk](https://pretalx.com/euroscipy-2024/talk/893KBK/), [slides](materials/2024-08-30-EuroSciPy2024-SBI.pdf)
+  - [Sbi overview blog post](https://transferlab.ai/series/simulation-based-inference/)
+  - [Sbi software paper](https://joss.theoj.org/papers/10.21105/joss.07754)
+  
 - **Bring Your Simulator**: If you have a scientific simulator you'd like to apply SBI to, prepare a simplified version that:
   - Takes parameters as input (numpy array or torch tensor)
   - Returns observations as output (numpy array or torch tensor)
@@ -97,23 +100,22 @@ If you have any issues with local setup, you can use our Google Colab notebooks 
 
 ```
 euroscipy-2025-sbi-tutorial/
-├── README.md                     # This file
+├── README.md                    # This file
 ├── pyproject.toml               # Project dependencies
 ├── slides/                      # Presentation slides
-│   └── slide_outline.md       # Detailed outline for Keynote
+│   └── sbi_tutorial.md
 ├── src/
 │   ├── 00_setup_test.py       # Verify installation
 │   ├── 01_first_inference.ipynb    # Exercise 1
 │   ├── 02_diagnostics.ipynb        # Exercise 2
 │   ├── 03_your_problem.ipynb       # Exercise 3
-│   ├── solutions/              # Complete solutions
 │   └── simulators/             # Example simulators
 │       ├── lotka_volterra.py
 │       ├── ball_throw.py
 │       └── sir_model.py
 └── materials/
-    ├── bayesian_primer.pdf     # Optional pre-reading
-    └── references.md           # Further resources
+    ├── 2024-08-30-EuroSciPy2024-SBI.pdf  # Optional pre-reading
+    └── references.md                     # Further resources, TBD.
 
 ```
 
@@ -132,7 +134,7 @@ euroscipy-2025-sbi-tutorial/
 
 ## 👥 Instructors
 
-[Instructor names and brief bios]
+TBD.
 
 ## 📧 Support
 
@@ -142,8 +144,9 @@ euroscipy-2025-sbi-tutorial/
 
 ## 🔗 Links
 
-- [sbi documentation](https://sbi-dev.github.io/sbi/)
-- [sbi paper](https://joss.theoj.org/papers/10.21105/joss.02505)
+- [sbi documentation](https://sbi.readthedocs.io/en/latest/)
+- [sbi paper](https://joss.theoj.org/papers/10.21105/joss.07754)
+- [sbi overview blog post](https://transferlab.ai/series/simulation-based-inference/)
 - [Tutorial paper (preprint)](https://arxiv.org/abs/[LINK])
 
 ## 📝 License
