@@ -113,7 +113,7 @@ Jan Teusen (Boelts) | TransferLab, appliedAI Institute for Europe
 
 <br>
 
-![width:200px center](https://raw.githubusercontent.com/sbi-dev/sbi/main/docs/logo.png)
+![width:200px center](https://raw.githubusercontent.com/sbi-dev/sbi/tree/main/docs/logo.png)
 
 <!--
 Speaker notes:
@@ -125,46 +125,175 @@ Speaker notes:
 
 ---
 
-# 📊 Your Mission: Environmental Monitoring
+# 🐺 A Real Conservation Crisis in Poland
+
+## October 2024: Headlines from Southern Poland
 
 <div class="columns">
 <div>
 
-**You're a data scientist for a regional environmental agency**
+![width:500px](images/tvp_cracow_terror_of_podhale.png)
 
-Your challenge:
-- Monitor wolf 🐺 and deer 🦌 populations
-- Limited resources: monthly reports only
-- Summary statistics: average & peak populations
-- Need to infer continuous dynamics
-
-**Your tool:** Lotka-Volterra model
-**Challenge:** What are the underlying population dynamics?
+**TVP Kraków Reports:**
+*"Wolves are the terror of Podhale. Farmers are calling for a cull"*
 
 </div>
 <div>
 
-```python
-# Your monthly reports
-Month 1: 🦌 avg: 45, peak: 52
-Month 2: 🦌 avg: 38, peak: 48
-Month 3: 🦌 avg: 31, peak: 40
-Month 4: 🦌 avg: 35, peak: 43
-Month 5: 🦌 avg: 42, peak: 50
+### The Crisis
+- **Wolf attacks increasing** in Czarny Dunajec
+- Targeting livestock and domestic animals
+- **Farmers demanding action**
+- **Wolves strictly protected** by law
 
-🐺 populations also reported
-```
+> *"Problem spreading beyond Podhale to other regions"*
 
 </div>
 </div>
 
 <!--
 Speaker notes:
-- Real challenge: sparse ecological monitoring
-- Budget constraints mean infrequent measurements
-- Only summary statistics, not continuous monitoring
-- Need to understand ecosystem health
-- Critical for conservation decisions
+- This is happening RIGHT NOW, just south of Kraków
+- Real farmers losing real livestock
+- Deep conflict between conservation law and traditional farming
+- Not an abstract problem - affects real families and communities
+-->
+
+---
+
+# 📊 The Science: Escalating Wolf-Sheep Conflicts
+
+## Research Confirms the Growing Problem
+
+<div class="columns">
+<div>
+
+![width:500px](images/pasternak_et_al_wolf_attacks_report.png)
+
+**Pasternak et al. (March 2025):**
+*"Preliminary report on wolf attacks on flocks of sheep"*
+
+</div>
+<div>
+
+### Key Findings (2015-2020)
+- **76.9% of attacks** in southern Poland
+- **Peak season:** July-August
+- **Trend:** Increasing year over year
+- **Most affected:** Podhale Zackel sheep
+
+> *"Methods of protecting flocks should be improved"*
+
+</div>
+</div>
+
+<!--
+Speaker notes:
+- Published research confirms the news reports
+- Systematic increase in conflicts
+- Concentrated in Carpathian mountain regions
+- Need science-based management decisions
+-->
+
+---
+
+# 🎯 Your Mission: Inform Policy Decisions
+
+## You're consulting for the State Environmental Agency
+
+<div class="columns">
+<div>
+
+### The Dilemma
+- **Conservation success:** Wolves recovering after near-extinction
+- **Economic impact:** Farmers losing livestock
+- **Policy question:** How much culling (if any)?
+
+### Your Task
+- Model wolf-deer ecosystem dynamics
+- Infer population parameters
+- Predict intervention outcomes
+- **Provide uncertainty estimates** for decision-makers
+
+</div>
+<div>
+
+### Available Data
+```python
+# Summary statistics from monitoring
+observations = {
+    "deer_mean": 45.2,
+    "wolf_mean": 8.7,
+    "deer_std": 12.1,
+    "wolf_std": 2.4,
+    "max_counts": [78, 15],
+    "correlations": 0.82
+}
+```
+
+**Challenge:** From limited data, infer ecosystem dynamics to guide policy
+
+</div>
+</div>
+
+<!--
+Speaker notes:
+- You're the technical expert advising government
+- Decisions affect both conservation and livelihoods
+- Need rigorous uncertainty quantification
+- Real consequences to getting this wrong
+-->
+
+---
+
+# 🔬 Our Tool: The Lotka-Volterra Model
+
+## Classic predator-prey dynamics
+
+<div class="columns">
+<div>
+
+### The Equations
+
+$$\frac{dx}{dt} = \alpha x - \beta xy$$
+$$\frac{dy}{dt} = \delta xy - \gamma y$$
+
+Where:
+- $x$ = deer population
+- $y$ = wolf population
+- $\alpha$ = deer birth rate
+- $\beta$ = predation rate
+- $\delta$ = wolf efficiency
+- $\gamma$ = wolf death rate
+
+</div>
+<div>
+
+### Why This Model?
+
+- **Well-understood** ecological dynamics
+- **Captures oscillations** seen in nature
+- **Parameters map** to real processes
+- **Fast to simulate** (enables SBI)
+
+```python
+def lotka_volterra(params):
+    α, β, δ, γ = params
+    # Simulate populations
+    return deer, wolves
+```
+
+</div>
+</div>
+
+> **Next challenge:** How do we infer these parameters from observations?
+
+<!--
+Speaker notes:
+- Classic model from 1920s, still widely used
+- Simple but captures essential dynamics
+- Parameters have biological meaning
+- Perfect for demonstrating SBI principles
 -->
 
 ---
@@ -623,25 +752,26 @@ Speaker notes:
 
 # Exercise 1: Your First Inference
 
-## Lotka-Volterra in 5 lines of code!
+## Wolf-Deer Dynamics from Summary Statistics!
 
 ```python
 # The entire SBI workflow
 from sbi import inference as sbi_inference
 
-# 1. Create inference object
+# 1. Setup: simulator outputs summary stats
+simulator_with_stats = lambda θ: compute_summary_stats(
+    lotka_volterra(θ)
+)
+
+# 2. Train neural network on summary statistics
 npe = sbi_inference.NPE(prior)
+npe.train(simulator_with_stats, num_simulations=10000)
 
-# 2. Train on simulated data
-npe.train(simulator, num_simulations=10000)
+# 3. Infer parameters from observed summaries
+posterior = npe.build_posterior(observed_stats)
 
-# 3. Build posterior for observation
-posterior = npe.build_posterior(observed_data)
-
-# 4. Sample from posterior
+# 4. Sample & visualize uncertainty!
 samples = posterior.sample((1000,))
-
-# 5. Visualize uncertainty!
 plot_posterior(samples)
 ```
 
@@ -659,27 +789,33 @@ Speaker notes:
 
 # Exercise 2: Trust but Verify
 
-## Is my posterior trustworthy? 🔍
+## Critical with Summary Statistics! 🔍
 
-### Two key diagnostics:
+**Why extra important?** Summary stats lose information → Need validation!
+
+### Four key diagnostics:
 
 <div class="columns">
 <div>
 
-### 1. Posterior Predictive Check
-- Sample parameters from posterior
-- Simulate new data
-- Compare to observations
-- Should look similar!
+### 1. Prior Predictive Check
+- Can prior generate observations?
+- Catch bad prior specification
+
+### 2. Training Diagnostics
+- Did neural network converge?
+- Check for overfitting
 
 </div>
 <div>
 
-### 2. Coverage Test
-- Test on synthetic data
-- Check calibration
-- 90% CI should contain truth 90% of time
-- Reveals overconfidence
+### 3. Posterior Predictive Check
+- Can posterior recreate data?
+- Validates summary statistics choice
+
+### 4. Simulation-Based Calibration
+- Are credible intervals calibrated?
+- 90% CI contains truth 90% of time?
 
 </div>
 </div>
@@ -773,7 +909,8 @@ Speaker notes:
 | **Prior too wide** | Wasted simulations | Start narrow, expand if needed |
 | **Too few simulations** | Poor approximation | Use diagnostics! |
 | **Ignoring diagnostics** | False confidence | Always verify |
-| **Complex summaries** | Information loss | Use raw data when possible |
+| **Poor summary stats** | Information loss | Include diverse statistics |
+| **Assuming sufficiency** | Missing key info | Test with diagnostics |
 
 <div class="highlight">
 
@@ -786,7 +923,8 @@ Speaker notes:
 - These are the most common issues
 - Diagnostics catch most problems
 - Prior choice is crucial
-- Start simple, add complexity
+- With summary stats: always question sufficiency
+- Our case: privacy forces summary stats, so diagnostics critical!
 -->
 
 ---
@@ -799,21 +937,19 @@ Speaker notes:
 <div>
 
 ### Methods
-- **Multi-round inference** (sequential)
-- **Model comparison** (NRE)
-- **Embedding networks**
-- **Likelihood methods** (NLE)
-- **Compositional inference**
+- NLE+`pyro` (**Talk Wed, 11:40, 1.38**)
+- Multi-round inference (sequential)
+- Flow matching, diffusion models
+- Tabular Foundation Models for NPE
 
 </div>
 <div>
 
 ### Applications
-- **High-dimensional problems**
-- **Expensive simulators**
-- **Missing data**
-- **Model misspecification**
-- **Experimental design**
+- Hierarchical Bayesian inference
+- Expensive simulators
+- High-dimensional problems
+- Training-free SBI
 
 </div>
 </div>
@@ -848,11 +984,8 @@ Speaker notes:
 <div>
 
 ### Engineering
-- 🏭 **Manufacturing:** Quality control
 - 🚗 **Automotive:** Safety testing
-- ✈️ **Aerospace:** Design optimization
 - 💊 **Pharma:** Drug discovery
-- 🏗️ **Civil:** Structural analysis
 
 </div>
 </div>
@@ -871,38 +1004,39 @@ Speaker notes:
 
 # Join the SBI Community!
 
+![width:800px center](images/sbi_hackathon_crew.png)
+*SBI Hackathon 2025, Tübingen - Join us next time!*
+
+---
+
 <div class="columns">
 <div>
 
 ### 📦 **The Package**
 - GitHub: [github.com/sbi-dev/sbi](https://github.com/sbi-dev/sbi)
-- 2000+ stars, 70+ contributors
+- 700+ stars, 82+ contributors
 - Active development
-- NumFOCUS affiliated
 
-### 💬 **Get Help**
+### 💬 **Get Help & Connect**
 - GitHub Discussions
-- Annual hackathons
-- Tutorial papers
+- **Annual hackathons** (next: 2026!)
+- Discord Server
 
 </div>
 <div>
 
-### 📚 **Learn More**
+### 📚 **Resources**
 - [Documentation](https://sbi-dev.github.io/sbi/)
 - [JOSS paper](https://joss.theoj.org/papers/10.21105/joss.02505)
-- [Tutorial paper](https://arxiv.org/abs/XXX)
-- Example notebooks
+- Tutorial papers & notebooks
 
 ### 🤝 **Contribute!**
-- Report issues
-- Add examples
-- Improve docs
+- Join the next hackathon
+- Add your use case
+- Help others get started
 
 </div>
 </div>
-
-![width:150px center](https://raw.githubusercontent.com/sbi-dev/sbi/main/docs/docs/assets/logo.png)
 
 <!--
 Speaker notes:
@@ -918,20 +1052,36 @@ Speaker notes:
 
 # Thank You! 🙏
 
+<div class="columns">
+<div>
+
 ## Questions?
 
 ### 📧 Contact
-**Email:** [your-email]
-**GitHub:** [your-github]
+**GitHub:** Create an issue or discussion
+**Discord:** Join via GitHub link
 
-### 📚 Materials
-**Tutorial:** `github.com/[repo]/euroscipy-2025-sbi-tutorial`
-**Docs:** `sbi-dev.github.io/sbi`
+### 💬 Let's Talk!
+Available after the session for discussions
 
-### 💭 Feedback
-**Survey:** [QR code or link]
+</div>
+<div>
+
+## 📱 Materials & Feedback
+
+![width:300px center](QR_CODE_PLACEHOLDER)
+
+### **[LINK_PLACEHOLDER]**
 
 <br>
+
+**Scan for:**
+- Tutorial notebooks
+- Slides
+- Feedback survey
+
+</div>
+</div>
 
 > **What will you infer?** 🚀
 
@@ -967,53 +1117,3 @@ Where:
 **Implementation:** Normalizing flows for flexible distributions
 
 ---
-
-# GPU Acceleration
-
-## Scaling to large problems
-
-```python
-# Enable GPU acceleration
-device = "cuda" if torch.cuda.is_available() else "cpu"
-
-# Configure neural network
-neural_net = posterior_nn(
-    model="nsf",  # Neural spline flow
-    hidden_features=128,
-    num_transforms=10,
-    device=device
-)
-
-# Parallel simulation on GPU
-vectorized_simulator = torch.vmap(simulator)
-```
-
-**Speedup:** 10-100x for large-scale problems
-
----
-
-# Installation Troubleshooting
-
-## Common issues and solutions:
-
-### PyTorch installation
-```bash
-# CPU only
-pip install torch --index-url https://download.pytorch.org/whl/cpu
-
-# CUDA 11.8
-pip install torch --index-url https://download.pytorch.org/whl/cu118
-```
-
-### Apple Silicon (M1/M2)
-```bash
-pip install torch torchvision torchaudio
-# MPS acceleration enabled automatically
-```
-
-### Import errors
-```bash
-# Full reinstall
-pip uninstall sbi torch
-pip install sbi[dev]  # Includes all optional dependencies
-```
