@@ -1004,7 +1004,7 @@ Speaker notes:
 
 # Join the SBI Community!
 
-![width:800px center](images/sbi_hackathon_crew.png)
+![width:800px center](images/sbi_hackathon_crew.jpg)
 *SBI Hackathon 2025, Tübingen - Join us next time!*
 
 ---
