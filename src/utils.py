@@ -40,12 +40,12 @@ def plot_posterior_predictions(
     print("Plotting posterior predictive time series...")
 
     # Ensure predictions_tensor is the right shape
-    assert predictions.ndim == 3, (
-        "predictions_tensor should have shape (n_predictions, timesteps, 2)"
-    )
-    assert predictions.shape[2] == 2, (
-        "predictions_tensor should have 2 species in last dimension"
-    )
+    assert (
+        predictions.ndim == 3
+    ), "predictions_tensor should have shape (n_predictions, timesteps, 2)"
+    assert (
+        predictions.shape[2] == 2
+    ), "predictions_tensor should have 2 species in last dimension"
 
     # Calculate percentiles for uncertainty bands
     lower_bound = torch.quantile(predictions, 0.05, dim=0)
@@ -125,9 +125,9 @@ def print_summary_statistics(
         observed_data = observed_data.squeeze()
 
     assert observed_data.ndim == 1, "Observed data should be a 1D tensor."
-    assert len(observed_data) == len(labels), (
-        "Mismatch between observed data and labels."
-    )
+    assert len(observed_data) == len(
+        labels
+    ), "Mismatch between observed data and labels."
 
     # Print the observed data in a more readable format
     for label, value in zip(labels, observed_data, strict=False):
@@ -329,17 +329,17 @@ def plot_predictive_check(
     n_dims = x.shape[1]
 
     # Validate inputs
-    assert len(stat_names) == n_dims, (
-        f"Length of stat_names ({len(stat_names)}) must match number of dimensions ({n_dims})"
-    )
-    assert len(observed_data) == n_dims, (
-        f"Length of observed_data ({len(observed_data)}) must match number of dimensions ({n_dims})"
-    )
+    assert (
+        len(stat_names) == n_dims
+    ), f"Length of stat_names ({len(stat_names)}) must match number of dimensions ({n_dims})"
+    assert (
+        len(observed_data) == n_dims
+    ), f"Length of observed_data ({len(observed_data)}) must match number of dimensions ({n_dims})"
 
     if limits is not None:
-        assert len(limits) == n_dims, (
-            f"Length of limits ({len(limits)}) must match number of dimensions ({n_dims})"
-        )
+        assert (
+            len(limits) == n_dims
+        ), f"Length of limits ({len(limits)}) must match number of dimensions ({n_dims})"
 
     # Get optimal grid layout
     rows, cols = _get_grid_layout(n_dims)
