@@ -113,7 +113,7 @@ Jan Teusen (Boelts) | TransferLab, appliedAI Institute for Europe
 
 <br>
 
-![width:200px center](https://raw.githubusercontent.com/sbi-dev/sbi/tree/main/docs/logo.png)
+![width:500px center](images/logo.png)
 
 <!--
 Speaker notes:
@@ -141,12 +141,10 @@ Speaker notes:
 <div>
 
 ### The Crisis
-- **Wolf attacks increasing** in Czarny Dunajec
+- **Wolf attacks increasing** south Poland
 - Targeting livestock and domestic animals
 - **Farmers demanding action**
 - **Wolves strictly protected** by law
-
-> *"Problem spreading beyond Podhale to other regions"*
 
 </div>
 </div>
@@ -182,6 +180,8 @@ Speaker notes:
 - **Trend:** Increasing year over year
 - **Most affected:** Podhale Zackel sheep
 
+<br>
+
 > *"Methods of protecting flocks should be improved"*
 
 </div>
@@ -205,20 +205,22 @@ Speaker notes:
 <div>
 
 ### The Dilemma
+
 - **Conservation success:** Wolves recovering after near-extinction
 - **Economic impact:** Farmers losing livestock
-- **Policy question:** How much culling (if any)?
+- **Policy question:** How much culling?
 
 ### Your Task
-- Model wolf-deer ecosystem dynamics
+
+- Model wolf-deer dynamics
 - Infer population parameters
-- Predict intervention outcomes
-- **Provide uncertainty estimates** for decision-makers
+- **Provide uncertainty estimates**
 
 </div>
 <div>
 
 ### Available Data
+
 ```python
 # Summary statistics from monitoring
 observations = {
@@ -230,6 +232,8 @@ observations = {
     "correlations": 0.82
 }
 ```
+
+<br>
 
 **Challenge:** From limited data, infer ecosystem dynamics to guide policy
 
@@ -258,7 +262,6 @@ Speaker notes:
 $$\frac{dx}{dt} = \alpha x - \beta xy$$
 $$\frac{dy}{dt} = \delta xy - \gamma y$$
 
-Where:
 - $x$ = deer population
 - $y$ = wolf population
 - $\alpha$ = deer birth rate
@@ -360,6 +363,8 @@ Speaker notes:
 
 </div>
 
+<br>
+
 > **Which one is correct?** 🤔
 > **What about future predictions?** 📈
 
@@ -416,16 +421,21 @@ Speaker notes:
 ## Why can't we just use Bayes' rule?
 
 ### Bayes' Rule:
-# `p(θ|x) ∝ p(x|θ) × p(θ)`
+
+$$p(θ|x) ∝ p(x|θ) × p(θ)$$
+
+<br>
+
 
 <div class="highlight">
 
 **For complex simulators:**
-- 🎲 **Stochastic:** Different output each run
 - 📦 **Black-box:** No analytical likelihood `p(x|θ)`
-- 🐌 **Slow:** Can't evaluate millions of times
+- 🐌 **Slow:** Likelihood evaluations infeasible
 
 </div>
+
+<br>
 
 **Examples:** Climate models, neural circuits, epidemics, cosmology...
 
@@ -477,7 +487,8 @@ Speaker notes:
 <div class="columns">
 <div>
 
-### 📓 Exercise 1: Quick Win
+### 📓 Exercise 1: First inference
+
 **15 minutes**
 - Load Lotka-Volterra simulator
 - Run NPE in 5 lines
@@ -497,11 +508,15 @@ Speaker notes:
 </div>
 </div>
 
+<div class="center">
+
 ### 🚀 Exercise 3: Your Problem
+
 **20 minutes**
-- Adapt template to your simulator
-- OR use provided examples
-- Real inference on real problems
+
+- Adapt template to your simulator, OR use provided examples
+
+</div>
 
 <!--
 Speaker notes:
@@ -525,6 +540,7 @@ Speaker notes:
 <div>
 
 ### 📚 Classical: Rejection Sampling
+
 - Simple and intuitive
 - No neural networks
 - Inefficient in high-D
@@ -533,7 +549,8 @@ Speaker notes:
 </div>
 <div>
 
-### 🧠 Modern: Neural Density Estimation
+### 🧠 Modern: Density Estimation
+
 - Efficient and scalable
 - Amortized inference
 - Handles high-D
@@ -541,6 +558,8 @@ Speaker notes:
 
 </div>
 </div>
+
+<br>
 
 > We'll see both for intuition, then use the modern approach
 
@@ -562,11 +581,12 @@ accepted_params = []
 for _ in range(n_simulations):
     θ = prior.sample()                    # 1. Sample parameters
     x_sim = simulator(θ)                  # 2. Simulate data
-    if distance(x_sim, x_obs) < ε:       # 3. Accept if close
+    if distance(x_sim, x_obs) < ε:        # 3. Accept if close
         accepted_params.append(θ)         # 4. Store accepted
 
 posterior_samples = accepted_params       # 5. These approximate p(θ|x)
 ```
+<br>
 
 <div class="highlight">
 
@@ -593,11 +613,15 @@ Speaker notes:
 | **5D** | 0.1% | 1,000,000 😐 |
 | **10D** | 0.00001% | 10,000,000,000 ❌ |
 
+<br>
+
 <div class="highlight">
 
 **Problem:** In high dimensions, almost nothing is "close" to your observation
 
 </div>
+
+<br>
 
 > **Solution:** Learn the relationship instead of rejecting!
 
@@ -612,7 +636,7 @@ Speaker notes:
 
 # Neural Posterior Estimation (NPE)
 
-## Learning to predict parameters from data
+## Learning to predict _distributions_ given data
 
 <div class="columns">
 <div>
@@ -756,26 +780,24 @@ Speaker notes:
 
 ```python
 # The entire SBI workflow
-from sbi import inference as sbi_inference
+from sbi.inference import NPE
 
 # 1. Setup: simulator outputs summary stats
-simulator_with_stats = lambda θ: compute_summary_stats(
-    lotka_volterra(θ)
-)
+θ = prior.sample((10_000))
+x = lambda θ: compute_summary_stats(lotka_volterra(θ))
 
 # 2. Train neural network on summary statistics
-npe = sbi_inference.NPE(prior)
-npe.train(simulator_with_stats, num_simulations=10000)
+npe = NPE(prior)
+npe.append_simulations(θ, x).train()
 
 # 3. Infer parameters from observed summaries
-posterior = npe.build_posterior(observed_stats)
+posterior = npe.build_posterior()
 
 # 4. Sample & visualize uncertainty!
-samples = posterior.sample((1000,))
-plot_posterior(samples)
+samples = posterior.sample((1000,), x=observed_stats)
 ```
 
-**📝 Open notebook:** `01_first_inference.ipynb`
+**📝 Open notebook:** [`01_first_inference.ipynb`](../src/01_first_inference.ipynb)
 
 <!--
 Speaker notes:
@@ -791,7 +813,7 @@ Speaker notes:
 
 ## Critical with Summary Statistics! 🔍
 
-**Why extra important?** Summary stats lose information → Need validation!
+**Why extra important?** SBI is approximate → Needs validation!
 
 ### Four key diagnostics:
 
@@ -931,7 +953,7 @@ Speaker notes:
 <div>
 
 ### Methods
-- NLE+`pyro` (**Talk Wed, 11:40, 1.38**)
+- [NLE+`pyro` (**Talk Wed, 11:40, 1.38**](https://euroscipy.org/talks/KCYYTF/))
 - Multi-round inference (sequential)
 - Flow matching, diffusion models
 - Tabular Foundation Models for NPE
@@ -950,7 +972,7 @@ Speaker notes:
 
 <br>
 
-> 📚 **Resources:** Papers, tutorials, and examples at [sbi-dev.github.io](https://sbi.readthedocs.io/en/latest/)
+> 📚 **Resources:** Papers, tutorials, and examples at [sbi.readthedocs.io](https://sbi.readthedocs.io/en/latest/)
 
 <!--
 Speaker notes:
@@ -964,32 +986,36 @@ Speaker notes:
 
 # 🌍 Real-World Applications
 
-## SBI in the wild:
+## SBI in the wild
 
 <div class="columns">
 <div>
 
 ### Science
-- 🧠 **Neuroscience:** Neural circuits
-- 🦠 **Epidemiology:** COVID-19 models
-- 🌍 **Climate:** Weather prediction
-- 🔬 **Physics:** Gravitational waves
-- 🧬 **Biology:** Gene regulation
+
+- 🧠 **Neuroscience:** [Neural circuits](https://elifesciences.org/articles/56261)
+- 🦠 **Epidemiology:** [COVID-19 models](https://arxiv.org/abs/2005.07062)
+- 🌍 **Climate:** [Weather prediction](https://gmd.copernicus.org/articles/14/7659/2021/gmd-14-7659-2021.html)
+- 🔬 **Physics:** [Gravitational waves](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.127.241103)
+- 🧬 **Biology:** [Gene regulation](https://link.springer.com/article/10.1186/s13059-021-02289-z)
 
 </div>
 <div>
 
 ### Engineering
-- 🚗 **Automotive:** Safety testing
-- 💊 **Pharma:** Drug discovery
+- 🚗 **Automotive:** [Safety testing](https://2025.uncecomp.org/proceedings/pdf/21274.pdf)
+- 📞 **Telecomm.:** [Radio propagation](https://arxiv.org/abs/2410.07930)
 
 </div>
 </div>
 
 <br>
 
-> **Your application next?** 🚀
+<div class="highlight">
 
+[Webapp with overview of SBI applications](https://sbi-applications-explorer.streamlit.app/)
+
+</div>
 <!--
 Speaker notes:
 - Wide adoption across fields
@@ -1057,16 +1083,18 @@ Speaker notes:
 <div class="columns">
 <div>
 
-## Questions?
+## ❓ Questions?
 
-### 📧 Contact
+- [**GitHub Discussions**](https://github.com/sbi-dev/sbi/discussions)
+- [**Discord Server**](https://discord.gg/eEeVPSvWKy)
+- **Let's Talk after the session**
 
-**GitHub Discussion:**
-**Discord:**
+<br>
 
-### 💬 Let's Talk!
+## 📱 Materials
 
-Available after the session for discussions
+[github.com/janfb/euroscipy-2025-sbi-tutorial`](https://github.com/janfb/euroscipy-2025-sbi-tutorial)
+
 
 </div>
 <div>
@@ -1075,11 +1103,10 @@ Available after the session for discussions
 
 ![width:300px center](images/qr_code.png)
 
-</div>
-</div>
+https://forms.gle/vf6rHA5DcAt2ird98
 
-📱 **Materials:**
-[`github.com/janfb/euroscipy-2025-sbi-tutorial`](https://github.com/janfb/euroscipy-2025-sbi-tutorial)
+</div>
+</div>
 
 <br>
 
@@ -1092,6 +1119,27 @@ Speaker notes:
 - Encourage questions
 - Available after for discussions
 -->
+
+---
+
+# References & Acknowledgments
+
+## 🙏 Thanks To
+
+- **Funding**: appliedAI Institute for Europe
+  - 🚀 **We're hiring!** AI Research Engineer @ TransferLab
+  - [Apply here](https://www.linkedin.com/jobs/view/4282597315/)
+- **Communities**: SBI community & EuroSciPy community
+
+## 🛠️ Tools Used
+
+- **[Marp](https://github.com/marp-team/marp)**: Markdown presentation ecosystem
+- **Claude + [Serena MCP](https://github.com/oraios/serena)**: AI-assisted drafting & refactoring
+
+<br>
+
+See also the [references file](../materials/references.md)
+
 
 ---
 

@@ -140,6 +140,12 @@ euroscipy-2025-sbi-tutorial/
 - [sbi overview blog post](https://transferlab.ai/series/simulation-based-inference/)
 - [Tutorial paper (preprint)](https://arxiv.org/abs/[LINK])
 
+## Acknowledgments
+
+- SBI community: https://github.com/sbi-dev/sbi/graphs/contributors
+- Funding: [TransferLab, appliedAI Institute for Europe](https://transferlab.ai/about/)
+- Organization: [EuroSciPy 2025](https://euroscipy.org/team/)
+
 ## 📝 License
 
 This tutorial is licensed under CC BY 4.0. Feel free to reuse and adapt with attribution.
