@@ -820,7 +820,7 @@ Speaker notes:
 </div>
 </div>
 
-**📝 Open notebook:** `02_diagnostics.ipynb`
+**📝 Open notebook:** [`02_diagnostics.ipynb`](../src/02_diagnostics.ipynb)
 
 <!--
 Speaker notes:
@@ -845,17 +845,8 @@ Simple projectile motion with air resistance
 ### 🦠 **Option C: SIR Epidemic Model**
 Disease spread dynamics
 
-<div class="highlight">
 
-**Template provides:**
-- Prior specification guide
-- Simulator wrapper
-- Diagnostic pipeline
-- Visualization tools
-
-</div>
-
-**📝 Open notebook:** `03_your_problem.ipynb`
+**📝 Open notebook:** [`03_your_problem.ipynb`](../src/03_your_problem.ipynb)
 
 <!--
 Speaker notes:
@@ -884,6 +875,8 @@ Speaker notes:
 | **NRE** | `p(θ,x)/p(θ)p(x)` | Model comparison | Hypothesis testing |
 | **Sequential** | Iteratively | Sample efficiency | 10x fewer simulations |
 
+<br>
+
 <div class="highlight">
 
 All available in the `sbi` package with the same interface!
@@ -906,12 +899,13 @@ Speaker notes:
 
 | Pitfall | Consequence | Solution |
 |---------|-------------|----------|
-| **Prior too wide** | Wasted simulations | Start narrow, expand if needed |
+| **Prior too wide** | Wasted simulations | Use domain knowledge |
 | **Too few simulations** | Poor approximation | Use diagnostics! |
 | **Ignoring diagnostics** | False confidence | Always verify |
 | **Poor summary stats** | Information loss | Include diverse statistics |
 | **Assuming sufficiency** | Missing key info | Test with diagnostics |
 
+<br>
 <div class="highlight">
 
 > **Golden rule:** Always validate your results!
@@ -954,7 +948,9 @@ Speaker notes:
 </div>
 </div>
 
-> 📚 **Resources:** Papers, tutorials, and examples at [sbi-dev.github.io](https://sbi-dev.github.io/sbi/)
+<br>
+
+> 📚 **Resources:** Papers, tutorials, and examples at [sbi-dev.github.io](https://sbi.readthedocs.io/en/latest/)
 
 <!--
 Speaker notes:
@@ -990,6 +986,8 @@ Speaker notes:
 </div>
 </div>
 
+<br>
+
 > **Your application next?** 🚀
 
 <!--
@@ -1013,26 +1011,30 @@ Speaker notes:
 <div>
 
 ### 📦 **The Package**
+
 - GitHub: [github.com/sbi-dev/sbi](https://github.com/sbi-dev/sbi)
 - 700+ stars, 82+ contributors
 - Active development
 
 ### 💬 **Get Help & Connect**
-- GitHub Discussions
-- **Annual hackathons** (next: 2026!)
-- Discord Server
+
+- [GitHub Discussions](https://github.com/sbi-dev/sbi/discussions)
+- [Discord Server](https://discord.gg/eEeVPSvWKy)
+- [🦋 Bluesky](https://bsky.app/profile/sbi-devs.bsky.social)
 
 </div>
 <div>
 
 ### 📚 **Resources**
-- [Documentation](https://sbi-dev.github.io/sbi/)
+
+- [Documentation](https://sbi.readthedocs.io/en/latest/)
 - [JOSS paper](https://joss.theoj.org/papers/10.21105/joss.02505)
-- Tutorial papers & notebooks
+- New paper: ["SBI: a practical guide"](https://github.com/sbi-dev/sbi-practical-guide)
 
 ### 🤝 **Contribute!**
+
 - Join the next hackathon
-- Add your use case
+- Use the package, raise issues
 - Help others get started
 
 </div>
@@ -1058,30 +1060,28 @@ Speaker notes:
 ## Questions?
 
 ### 📧 Contact
-**GitHub:** Create an issue or discussion
-**Discord:** Join via GitHub link
+
+**GitHub Discussion:**
+**Discord:**
 
 ### 💬 Let's Talk!
+
 Available after the session for discussions
 
 </div>
 <div>
 
-## 📱 Materials & Feedback
+## 📱 Feedback Form
 
-![width:300px center](QR_CODE_PLACEHOLDER)
+![width:300px center](images/qr_code.png)
 
-### **[LINK_PLACEHOLDER]**
+</div>
+</div>
+
+📱 **Materials:**
+[`github.com/janfb/euroscipy-2025-sbi-tutorial`](https://github.com/janfb/euroscipy-2025-sbi-tutorial)
 
 <br>
-
-**Scan for:**
-- Tutorial notebooks
-- Slides
-- Feedback survey
-
-</div>
-</div>
 
 > **What will you infer?** 🚀
 
