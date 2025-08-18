@@ -1128,7 +1128,7 @@ Speaker notes:
 
 - **Funding**: appliedAI Institute for Europe
   - 🚀 **We're hiring!** AI Research Engineer @ TransferLab
-  - [Apply here](https://www.linkedin.com/jobs/view/4282597315/)
+  - [Apply here](https://transferlab.ai/jobs/ai-engineer/)
 - **Communities**: SBI community & EuroSciPy community
 
 ## 🛠️ Tools Used
