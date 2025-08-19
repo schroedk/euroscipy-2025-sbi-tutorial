@@ -420,7 +420,6 @@ def plot_predictive_check(
         print("   The model/prior may need to be reconsidered!")
 
     # Print detailed percentiles for reference
-    print(f"\nDetailed percentiles for all {n_dims} statistics:")
     for _, (name, p) in enumerate(zip(stat_names, percentiles, strict=False)):
         status = (
             "🔴"

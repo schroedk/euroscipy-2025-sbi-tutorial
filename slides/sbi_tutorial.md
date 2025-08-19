@@ -107,13 +107,14 @@ style: |
 **EuroSciPy 2025** | Kraków, Poland | 90 minutes
 **Case Study:** Ecological Monitoring with Limited Data
 
-Jan Teusen (Boelts) | TransferLab, appliedAI Institute for Europe
-
-📱 **Materials:** `github.com/janfb/euroscipy-2025-sbi-tutorial`
-
 <br>
 
-![width:200px center](https://raw.githubusercontent.com/sbi-dev/sbi/tree/main/docs/logo.png)
+Jan Teusen (Boelts) | TransferLab, appliedAI Institute for Europe
+
+📱 **Materials:** [`github.com/janfb/euroscipy-2025-sbi-tutorial`](https://github.com/janfb/euroscipy-2025-sbi-tutorial)
+
+
+![width:400px center](images/logo.png)
 
 <!--
 Speaker notes:
@@ -132,7 +133,7 @@ Speaker notes:
 <div class="columns">
 <div>
 
-![width:500px](images/tvp_cracow_terror_of_podhale.png)
+[![width:500px](images/tvp_cracow_terror_of_podhale.png)](https://krakow.tvp.pl/82694720/wilki-postrachem-podhala-rolnicy-apeluja-o-odstrzal)
 
 **TVP Kraków Reports:**
 *"Wolves are the terror of Podhale. Farmers are calling for a cull"*
@@ -141,12 +142,11 @@ Speaker notes:
 <div>
 
 ### The Crisis
-- **Wolf attacks increasing** in Czarny Dunajec
+
+- **Wolf attacks increasing** south Poland
 - Targeting livestock and domestic animals
 - **Farmers demanding action**
 - **Wolves strictly protected** by law
-
-> *"Problem spreading beyond Podhale to other regions"*
 
 </div>
 </div>
@@ -161,14 +161,12 @@ Speaker notes:
 
 ---
 
-# 📊 The Science: Escalating Wolf-Sheep Conflicts
-
-## Research Confirms the Growing Problem
+# 📊 Research Confirms the Growing Problem
 
 <div class="columns">
 <div>
 
-![width:500px](images/pasternak_et_al_wolf_attacks_report.png)
+[![width:500px](images/pasternak_et_al_wolf_attacks_report.png)](https://www.researchgate.net/publication/389812129_Preliminary_report_on_wolf_attacks_on_flocks_of_sheep_of_native_breeds_in_Poland)
 
 **Pasternak et al. (March 2025):**
 *"Preliminary report on wolf attacks on flocks of sheep"*
@@ -181,6 +179,8 @@ Speaker notes:
 - **Peak season:** July-August
 - **Trend:** Increasing year over year
 - **Most affected:** Podhale Zackel sheep
+
+<br>
 
 > *"Methods of protecting flocks should be improved"*
 
@@ -205,20 +205,22 @@ Speaker notes:
 <div>
 
 ### The Dilemma
+
 - **Conservation success:** Wolves recovering after near-extinction
 - **Economic impact:** Farmers losing livestock
-- **Policy question:** How much culling (if any)?
+- **Policy question:** How much culling?
 
 ### Your Task
-- Model wolf-deer ecosystem dynamics
+
+- Model wolf-deer dynamics
 - Infer population parameters
-- Predict intervention outcomes
-- **Provide uncertainty estimates** for decision-makers
+- **Provide uncertainty estimates**
 
 </div>
 <div>
 
 ### Available Data
+
 ```python
 # Summary statistics from monitoring
 observations = {
@@ -227,9 +229,11 @@ observations = {
     "deer_std": 12.1,
     "wolf_std": 2.4,
     "max_counts": [78, 15],
-    "correlations": 0.82
+    ...
 }
 ```
+
+<br>
 
 **Challenge:** From limited data, infer ecosystem dynamics to guide policy
 
@@ -255,12 +259,9 @@ Speaker notes:
 
 ### The Equations
 
-$$\frac{dx}{dt} = \alpha x - \beta xy$$
-$$\frac{dy}{dt} = \delta xy - \gamma y$$
+$$\frac{dx}{dt} = \alpha x - \beta xy\;,\; \frac{dy}{dt} = \delta xy - \gamma y$$
 
-Where:
-- $x$ = deer population
-- $y$ = wolf population
+- $x$ = deers, $y$ = wolves
 - $\alpha$ = deer birth rate
 - $\beta$ = predation rate
 - $\delta$ = wolf efficiency
@@ -271,20 +272,24 @@ Where:
 
 ### Why This Model?
 
+<br>
+
 - **Well-understood** ecological dynamics
 - **Captures oscillations** seen in nature
 - **Parameters map** to real processes
 - **Fast to simulate** (enables SBI)
 
-```python
+<!-- ```python
 def lotka_volterra(params):
     α, β, δ, γ = params
     # Simulate populations
     return deer, wolves
-```
+``` -->
 
 </div>
 </div>
+
+<br>
 
 > **Next challenge:** How do we infer these parameters from observations?
 
@@ -360,6 +365,8 @@ Speaker notes:
 
 </div>
 
+<br>
+
 > **Which one is correct?** 🤔
 > **What about future predictions?** 📈
 
@@ -416,16 +423,21 @@ Speaker notes:
 ## Why can't we just use Bayes' rule?
 
 ### Bayes' Rule:
-# `p(θ|x) ∝ p(x|θ) × p(θ)`
+
+$$p(θ|x) ∝ p(x|θ) × p(θ)$$
+
+<br>
+
 
 <div class="highlight">
 
 **For complex simulators:**
-- 🎲 **Stochastic:** Different output each run
 - 📦 **Black-box:** No analytical likelihood `p(x|θ)`
-- 🐌 **Slow:** Can't evaluate millions of times
+- 🐌 **Slow:** Likelihood evaluations infeasible
 
 </div>
+
+<br>
 
 **Examples:** Climate models, neural circuits, epidemics, cosmology...
 
@@ -477,7 +489,8 @@ Speaker notes:
 <div class="columns">
 <div>
 
-### 📓 Exercise 1: Quick Win
+### 📓 Exercise 1: First inference
+
 **15 minutes**
 - Load Lotka-Volterra simulator
 - Run NPE in 5 lines
@@ -487,7 +500,7 @@ Speaker notes:
 </div>
 <div>
 
-### 🔍 Exercise 2: Trust & Verify
+### 🔍 Exercise 2: SBI Diagnostics
 **20 minutes**
 - Posterior predictive checks
 - Coverage diagnostics
@@ -497,11 +510,15 @@ Speaker notes:
 </div>
 </div>
 
-### 🚀 Exercise 3: Your Problem
+<div class="center">
+
+### 🚀 Exercise 3: Your SBI Problem
+
 **20 minutes**
-- Adapt template to your simulator
-- OR use provided examples
-- Real inference on real problems
+
+- Adapt template to your simulator, OR use provided examples
+
+</div>
 
 <!--
 Speaker notes:
@@ -525,6 +542,7 @@ Speaker notes:
 <div>
 
 ### 📚 Classical: Rejection Sampling
+
 - Simple and intuitive
 - No neural networks
 - Inefficient in high-D
@@ -533,7 +551,8 @@ Speaker notes:
 </div>
 <div>
 
-### 🧠 Modern: Neural Density Estimation
+### 🧠 Modern: Density Estimation
+
 - Efficient and scalable
 - Amortized inference
 - Handles high-D
@@ -541,6 +560,8 @@ Speaker notes:
 
 </div>
 </div>
+
+<br>
 
 > We'll see both for intuition, then use the modern approach
 
@@ -562,11 +583,12 @@ accepted_params = []
 for _ in range(n_simulations):
     θ = prior.sample()                    # 1. Sample parameters
     x_sim = simulator(θ)                  # 2. Simulate data
-    if distance(x_sim, x_obs) < ε:       # 3. Accept if close
+    if distance(x_sim, x_obs) < ε:        # 3. Accept if close
         accepted_params.append(θ)         # 4. Store accepted
 
 posterior_samples = accepted_params       # 5. These approximate p(θ|x)
 ```
+<br>
 
 <div class="highlight">
 
@@ -593,11 +615,15 @@ Speaker notes:
 | **5D** | 0.1% | 1,000,000 😐 |
 | **10D** | 0.00001% | 10,000,000,000 ❌ |
 
+<br>
+
 <div class="highlight">
 
 **Problem:** In high dimensions, almost nothing is "close" to your observation
 
 </div>
+
+<br>
 
 > **Solution:** Learn the relationship instead of rejecting!
 
@@ -612,7 +638,7 @@ Speaker notes:
 
 # Neural Posterior Estimation (NPE)
 
-## Learning to predict parameters from data
+## Learning to predict _distributions_ given data
 
 <div class="columns">
 <div>
@@ -641,9 +667,10 @@ Transform inference into **supervised learning**
 
 1. Generate training pairs
 2. Train neural density estimator
-3. Amortized inference
-
-**Result:** Instant posterior for any observation!
+   - Gaussian: learn mean and std
+   - Mixture of Gaussians
+   - Normalizing flows
+3. Instant posterior for new data!
 
 </div>
 </div>
@@ -706,7 +733,6 @@ Speaker notes:
 - Real-time applications
 - Interactive exploration
 - Multiple observations
-- Experimental design
 
 </div>
 
@@ -727,6 +753,7 @@ Speaker notes:
 ## Three exercises, increasing complexity
 
 ### 📓 **Exercise 1:** First Inference (15 min)
+### 🧑‍🎓 **SBI Diagnostics:** Recap and Input (5 min)
 ### 🔍 **Exercise 2:** Diagnostics (20 min)
 ### 🎯 **Exercise 3:** Your Problem (20 min)
 
@@ -756,26 +783,24 @@ Speaker notes:
 
 ```python
 # The entire SBI workflow
-from sbi import inference as sbi_inference
+from sbi.inference import NPE
 
 # 1. Setup: simulator outputs summary stats
-simulator_with_stats = lambda θ: compute_summary_stats(
-    lotka_volterra(θ)
-)
+θ = prior.sample((10_000))
+x = lambda θ: compute_summary_stats(lotka_volterra(θ))
 
 # 2. Train neural network on summary statistics
-npe = sbi_inference.NPE(prior)
-npe.train(simulator_with_stats, num_simulations=10000)
+npe = NPE(prior)
+npe.append_simulations(θ, x).train()
 
 # 3. Infer parameters from observed summaries
-posterior = npe.build_posterior(observed_stats)
+posterior = npe.build_posterior()
 
 # 4. Sample & visualize uncertainty!
-samples = posterior.sample((1000,))
-plot_posterior(samples)
+samples = posterior.sample((1000,), x=observed_stats)
 ```
 
-**📝 Open notebook:** `01_first_inference.ipynb`
+**📝 Open notebook:** [`01_first_inference.ipynb`](../src/01_first_inference.ipynb)
 
 <!--
 Speaker notes:
@@ -787,11 +812,299 @@ Speaker notes:
 
 ---
 
+<!-- _class: lead -->
+
+# 🔍 Diagnostics for SBI
+
+## Building Trust in Neural Posteriors
+
+---
+
+# What We Just Did: Recap
+
+## Neural Posterior Estimation (NPE)
+
+<div class="columns">
+<div>
+
+### 1️⃣ **Observe and simulate data**
+
+- Observed data as summary stats
+- Choose Lotka-Volterra and prior
+- Generate parameters and data
+
+### 2️⃣ **Trained NPE on simulations**
+
+- Neural network learned p(θ|x)
+- Amortized for instant inference
+
+</div>
+<div>
+
+### 3️⃣ **Got posterior distributions**
+- Not just point estimates!
+- Full uncertainty quantification
+- Parameter correlations revealed
+
+### 4️⃣ **Made predictions**
+
+```python
+# Sample full trajectories
+θ_post ~ posterior
+x_pred = simulator(θ_post)
+```
+
+</div>
+</div>
+
+<br>
+
+> **But wait...** How do we know we can trust these results? 🤔
+
+<!--
+Speaker notes:
+- Quick recap of the workflow
+- Emphasize we got distributions, not points
+- Now the critical question: trust
+-->
+
+---
+
+# Why Diagnostics are Critical
+
+## SBI is approximate inference - verification essential!
+
+<div class="highlight">
+
+### ⚠️ **Three sources of error:**
+
+1. **Neural approximation:** Is the network accurate? Did we use enough data?
+2. **Summary statistics:** Did we lose critical information?
+3. **Prior specification:** Does it cover the true parameters?
+
+</div>
+
+<br>
+
+### Without diagnostics, you risk:
+
+- ❌ **Overconfident conclusions** (too narrow posteriors)
+- ❌ **Missing the truth** (biased inference)
+- ❌ **Policy disasters** (remember the wolves!)
+
+<br>
+
+> **Remember:** Your recommendations affect real ecosystems and livelihoods!
+
+<!--
+Speaker notes:
+- SBI is powerful but approximate
+- Multiple potential failure points
+- Real consequences to getting it wrong
+- Diagnostics are not optional!
+-->
+
+---
+
+# The Four Essential Diagnostics
+
+## Your trust-building workflow 🛡️
+
+<div class="columns">
+<div>
+
+### 🎲 **1. Prior Predictive Check**
+**Question:** Can my prior generate realistic data?
+
+**How:** Sample prior → simulate → compare to observed
+
+### 📊 **2. Training Convergence**
+**Question:** Did the neural network learn properly?
+
+**How:** Check loss curves, validation metrics
+
+</div>
+<div>
+
+### 🔄 **3. Posterior Predictive Check**
+**Question:** Can the posterior recreate observations?
+
+**How:** Sample posterior → simulate → compare to observed
+
+
+### 📏 **4. Calibration Check**
+**Question:** Are uncertainties calibrated?
+
+**How:** Test if 90% CI contains truth 90% of time
+
+
+</div>
+</div>
+
+<!--
+Speaker notes:
+- Each diagnostic targets different failure mode
+- Together they build confidence
+- Let's see each in detail
+-->
+
+---
+
+# Diagnostic 1: Prior Predictive Check
+
+## Start before training! 🎲
+
+```python
+# Sample from prior and simulate
+for _ in range(100):
+    θ ~ prior()
+    x = simulator(θ)
+    plot(x)  # Should look reasonable!
+```
+
+<div class="columns">
+<div>
+
+### ✅ **Good Prior**
+- Generates diverse, realistic data
+- Covers observed range
+- Includes edge cases
+
+</div>
+<div>
+
+### ❌ **Bad Prior**
+- Creates impossible scenarios
+- Too narrow/wide
+- Misses observed data
+
+</div>
+</div>
+
+<br>
+
+<div class="highlight">
+
+**Example failure:** Prior allows negative birth rates → Populations go extinct instantly!
+
+</div>
+
+<!--
+Speaker notes:
+- This is your first sanity check
+- Catches obvious prior problems
+- Do this BEFORE expensive training
+- Use biological/physical constraints
+-->
+
+---
+
+# Diagnostic 3: Posterior Predictive Check
+
+## Can we recreate what we observed? 🔄
+
+```python
+θ_samples = posterior.sample((1000,))
+for θ in θ_samples:
+    x_pred = simulator(θ)
+    summary_pred = compute_summaries(x_pred)
+
+compare(summary_pred, summary_observed)
+```
+
+<div class="columns">
+<div>
+
+### What to look for:
+
+✅ **Predicted summaries match observed**
+✅ **Reasonable variation**
+✅ **No systematic bias**
+
+</div>
+<div>
+
+### Red flags:
+
+❌ **Can't recreate observations**
+❌ **Too narrow/wide predictions**
+❌ **Missing key features**
+
+</div>
+</div>
+
+<br>
+
+> **If this fails:** Your summary statistics likely lost critical information!
+
+<!--
+Speaker notes:
+- Most important single diagnostic
+- If can't recreate data, something wrong
+- Often reveals insufficient summaries
+- May need to add more statistics
+-->
+
+---
+
+# Diagnostic 4: Simulation-Based Calibration
+
+## Are your uncertainties honest? 📏
+
+<div class="columns">
+
+<div>
+
+### The test:
+1. Sample "true" parameters from prior
+2. Simulate data and infer posterior
+3. Check: Is truth in the credible interval?
+4. Repeat 100+ times
+
+</div>
+
+<div>
+
+```python
+coverage_test = []
+for _ in range(100):
+    θ_true ~ prior()
+    x = simulator(θ_true)
+    posterior = infer(x)
+
+    # Check if truth in 90% CI
+    in_ci = θ_true in posterior.confidence_interval(0.9)
+    coverage_test.append(in_ci)
+
+coverage = mean(coverage_test)  # Should be ~0.9!
+```
+
+</div>
+</div>
+
+<div class="highlight">
+
+**Expected:** 90% CI contains truth 90% of time
+**Overconfident:** Coverage < 0.9 (CIs too narrow)
+**Underconfident:** Coverage > 0.9 (CIs too wide)
+
+</div>
+
+<!--
+Speaker notes:
+- Gold standard for calibration
+- Tests the entire pipeline
+- Computational but worth it
+- Run overnight if needed
+-->
+
+---
+
 # Exercise 2: Trust but Verify
 
 ## Critical with Summary Statistics! 🔍
 
-**Why extra important?** Summary stats lose information → Need validation!
+**Why extra important?** SBI is approximate → Needs validation!
 
 ### Four key diagnostics:
 
@@ -820,7 +1133,7 @@ Speaker notes:
 </div>
 </div>
 
-**📝 Open notebook:** `02_diagnostics.ipynb`
+**📝 Open notebook:** [`02_diagnostics.ipynb`](../src/02_diagnostics.ipynb)
 
 <!--
 Speaker notes:
@@ -829,6 +1142,14 @@ Speaker notes:
 - These catch most problems
 - 20 minutes for this exercise
 -->
+
+---
+
+<!-- _class: lead -->
+
+# 🔍 Recap: Diagnostics for SBI
+
+## Building Trust in Neural Posteriors
 
 ---
 
@@ -845,17 +1166,8 @@ Simple projectile motion with air resistance
 ### 🦠 **Option C: SIR Epidemic Model**
 Disease spread dynamics
 
-<div class="highlight">
 
-**Template provides:**
-- Prior specification guide
-- Simulator wrapper
-- Diagnostic pipeline
-- Visualization tools
-
-</div>
-
-**📝 Open notebook:** `03_your_problem.ipynb`
+**📝 Open notebook:** [`03_your_problem.ipynb`](../src/03_your_problem.ipynb)
 
 <!--
 Speaker notes:
@@ -884,6 +1196,8 @@ Speaker notes:
 | **NRE** | `p(θ,x)/p(θ)p(x)` | Model comparison | Hypothesis testing |
 | **Sequential** | Iteratively | Sample efficiency | 10x fewer simulations |
 
+<br>
+
 <div class="highlight">
 
 All available in the `sbi` package with the same interface!
@@ -898,20 +1212,20 @@ Speaker notes:
 - Same API for all methods
 -->
 
----
 
-# ⚠️ Common Pitfalls & Solutions
+<!-- # ⚠️ Common Pitfalls & Solutions
 
 ### Learn from our mistakes!
 
 | Pitfall | Consequence | Solution |
 |---------|-------------|----------|
-| **Prior too wide** | Wasted simulations | Start narrow, expand if needed |
+| **Prior too wide** | Wasted simulations | Use domain knowledge |
 | **Too few simulations** | Poor approximation | Use diagnostics! |
 | **Ignoring diagnostics** | False confidence | Always verify |
 | **Poor summary stats** | Information loss | Include diverse statistics |
 | **Assuming sufficiency** | Missing key info | Test with diagnostics |
 
+<br>
 <div class="highlight">
 
 > **Golden rule:** Always validate your results!
@@ -937,7 +1251,7 @@ Speaker notes:
 <div>
 
 ### Methods
-- NLE+`pyro` (**Talk Wed, 11:40, 1.38**)
+- [NLE+`pyro` (**Talk Wed, 11:40, 1.38**](https://euroscipy.org/talks/KCYYTF/))
 - Multi-round inference (sequential)
 - Flow matching, diffusion models
 - Tabular Foundation Models for NPE
@@ -954,7 +1268,9 @@ Speaker notes:
 </div>
 </div>
 
-> 📚 **Resources:** Papers, tutorials, and examples at [sbi-dev.github.io](https://sbi-dev.github.io/sbi/)
+<br>
+
+> 📚 **Resources:** Papers, tutorials, and examples at [sbi.readthedocs.io](https://sbi.readthedocs.io/en/latest/)
 
 <!--
 Speaker notes:
@@ -968,30 +1284,36 @@ Speaker notes:
 
 # 🌍 Real-World Applications
 
-## SBI in the wild:
+## SBI in the wild
 
 <div class="columns">
 <div>
 
 ### Science
-- 🧠 **Neuroscience:** Neural circuits
-- 🦠 **Epidemiology:** COVID-19 models
-- 🌍 **Climate:** Weather prediction
-- 🔬 **Physics:** Gravitational waves
-- 🧬 **Biology:** Gene regulation
+
+- 🧠 **Neuroscience:** [Neural circuits](https://elifesciences.org/articles/56261)
+- 🦠 **Epidemiology:** [COVID-19 models](https://arxiv.org/abs/2005.07062)
+- 🌍 **Climate:** [Weather prediction](https://gmd.copernicus.org/articles/14/7659/2021/gmd-14-7659-2021.html)
+- 🔬 **Physics:** [Gravitational waves](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.127.241103)
+- 🧬 **Biology:** [Gene regulation](https://link.springer.com/article/10.1186/s13059-021-02289-z)
 
 </div>
 <div>
 
 ### Engineering
-- 🚗 **Automotive:** Safety testing
-- 💊 **Pharma:** Drug discovery
+- 🚗 **Automotive:** [Safety testing](https://2025.uncecomp.org/proceedings/pdf/21274.pdf)
+- 📞 **Telecomm.:** [Radio propagation](https://arxiv.org/abs/2410.07930)
 
 </div>
 </div>
 
-> **Your application next?** 🚀
+<br>
 
+<div class="highlight">
+
+[Webapp with overview of SBI applications](https://sbi-applications-explorer.streamlit.app/)
+
+</div>
 <!--
 Speaker notes:
 - Wide adoption across fields
@@ -1013,26 +1335,34 @@ Speaker notes:
 <div>
 
 ### 📦 **The Package**
+
 - GitHub: [github.com/sbi-dev/sbi](https://github.com/sbi-dev/sbi)
 - 700+ stars, 82+ contributors
 - Active development
 
+<br>
+
 ### 💬 **Get Help & Connect**
-- GitHub Discussions
-- **Annual hackathons** (next: 2026!)
-- Discord Server
+
+- [GitHub Discussions](https://github.com/sbi-dev/sbi/discussions)
+- [Discord Server](https://discord.gg/eEeVPSvWKy)
+- [🦋 Bluesky](https://bsky.app/profile/sbi-devs.bsky.social)
 
 </div>
 <div>
 
 ### 📚 **Resources**
-- [Documentation](https://sbi-dev.github.io/sbi/)
-- [JOSS paper](https://joss.theoj.org/papers/10.21105/joss.02505)
-- Tutorial papers & notebooks
+
+- [SBI Documentation](https://sbi.readthedocs.io/en/latest/)
+- New paper out **today**:
+["SBI: a practical guide"](https://arxiv.org/abs/2508.12939)
+
+<br>
 
 ### 🤝 **Contribute!**
+
 - Join the next hackathon
-- Add your use case
+- Use the package, raise issues
 - Help others get started
 
 </div>
@@ -1057,31 +1387,30 @@ Speaker notes:
 
 ## Questions?
 
-### 📧 Contact
-**GitHub:** Create an issue or discussion
-**Discord:** Join via GitHub link
+- [**GitHub Discussions**](https://github.com/sbi-dev/sbi/discussions)
+- [**Discord Server**](https://discord.gg/eEeVPSvWKy)
+- **Let's talk after the session**
 
-### 💬 Let's Talk!
-Available after the session for discussions
+<br>
+
+## 📱 Materials
+
+[github.com/janfb/euroscipy-2025-sbi-tutorial`](https://github.com/janfb/euroscipy-2025-sbi-tutorial)
+
 
 </div>
 <div>
 
-## 📱 Materials & Feedback
+## 📱 Feedback Form
 
-![width:300px center](QR_CODE_PLACEHOLDER)
+![width:300px center](images/qr_code.png)
 
-### **[LINK_PLACEHOLDER]**
+https://forms.gle/vf6rHA5DcAt2ird98
+
+</div>
+</div>
 
 <br>
-
-**Scan for:**
-- Tutorial notebooks
-- Slides
-- Feedback survey
-
-</div>
-</div>
 
 > **What will you infer?** 🚀
 
@@ -1092,6 +1421,28 @@ Speaker notes:
 - Encourage questions
 - Available after for discussions
 -->
+
+---
+
+# References & Acknowledgments
+
+## 🙏 Thanks To
+
+- **Funding**: appliedAI Institute for Europe
+
+  - 🚀 **We're hiring!** AI Research Engineer @ TransferLab, [Apply here](https://transferlab.ai/jobs/ai-engineer/)
+<br>
+- **Communities**: SBI community & EuroSciPy community
+
+## 🛠️ Tools Used
+
+- **[Marp](https://github.com/marp-team/marp)**: Markdown presentation ecosystem
+- **Claude + [Serena MCP](https://github.com/oraios/serena)**: AI-assisted drafting & refactoring
+
+<br>
+
+See also the [references file](../materials/references.md)
+
 
 ---
 

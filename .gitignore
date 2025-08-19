@@ -13,3 +13,7 @@ src/sbi-logs
 # Virtual environments
 .venv
 .serena
+
+# Local
+.DS_Store
+*sbi_hackathon_crew.jpg

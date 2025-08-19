@@ -20,7 +20,7 @@ from sbi.utils import BoxUniform
 
 def ball_throw_simulator(
     params: torch.Tensor | np.ndarray, return_trajectory: bool = False
-) -> torch.Tensor | tuple[torch.Tensor, np.ndarray, np.ndarray]:
+) -> torch.Tensor | tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
     """
     Simulate a ball throw with air resistance.
 
@@ -112,9 +112,9 @@ def ball_throw_simulator(
         if return_trajectory:
             x_traj.append(x)
             y_traj.append(y)
-    else:
-        # Safety fallback if simulation doesn't converge
-        landing_distance = x
+        else:
+            # Safety fallback if simulation doesn't converge
+            landing_distance = x
 
     # Add realistic observation noise (5% relative error)
     noise_scale = 0.05
@@ -129,7 +129,11 @@ def ball_throw_simulator(
     observations = torch.tensor([landing_distance, max_height], dtype=torch.float32)
 
     if return_trajectory:
-        return observations, np.array(x_traj), np.array(y_traj)
+        return (
+            observations,
+            torch.from_numpy(np.array(x_traj)),
+            torch.from_numpy(np.array(y_traj)),
+        )
     return observations
 
 
