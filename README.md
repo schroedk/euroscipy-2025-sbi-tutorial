@@ -1,6 +1,6 @@
 # EuroSciPy 2025: Simulation-Based Inference Tutorial
 
-**Beyond Likelihoods: Bayesian Parameter Inference for Black-Box Simulators with sbi**
+## Beyond Likelihoods: Bayesian Parameter Inference for Black-Box Simulators with sbi
 
 📍 Kraków, Poland | 90 minutes | Intermediate Track
 
