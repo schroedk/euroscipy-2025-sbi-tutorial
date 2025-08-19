@@ -138,7 +138,7 @@ euroscipy-2025-sbi-tutorial/
 - [sbi documentation](https://sbi.readthedocs.io/en/latest/)
 - [sbi paper](https://joss.theoj.org/papers/10.21105/joss.07754)
 - [sbi overview blog post](https://transferlab.ai/series/simulation-based-inference/)
-- [Tutorial paper (preprint)](https://arxiv.org/abs/[LINK])
+- [Tutorial paper (preprint)](https://arxiv.org/abs/2508.12939)
 
 ## Acknowledgments
 
