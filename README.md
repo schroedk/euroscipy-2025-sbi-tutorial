@@ -32,6 +32,7 @@ uv pip install -e .
 ```
 
 ### 2. Test Your Setup
+
 ```python
 # Run this to verify installation
 python -c "import sbi; import torch; print('✅ Setup complete!')"
@@ -41,8 +42,8 @@ python -c "import sbi; import torch; print('✅ Setup complete!')"
 
 - **Read a bit about SBI**:
   - [Last year's EuroSciPy Talk](https://pretalx.com/euroscipy-2024/talk/893KBK/), [slides](materials/2024-08-30-EuroSciPy2024-SBI.pdf)
-  - [Sbi overview blog post](https://transferlab.ai/series/simulation-based-inference/)
-  - [Sbi software paper](https://joss.theoj.org/papers/10.21105/joss.07754)
+  - [SBI overview blog post](https://transferlab.ai/series/simulation-based-inference/)
+  - [SBI: A Practical Guide](https://arxiv.org/abs/2508.12939)
 
 - **Bring Your Simulator**: If you have a scientific simulator you'd like to apply SBI to, prepare a simplified version that:
   - Takes parameters as input (numpy array or torch tensor)
@@ -88,7 +89,6 @@ python -c "import sbi; import torch; print('✅ Setup complete!')"
 
 - Advanced SBI methods (NLE, NRE, sequential)
 - Resources and community
-- Common pitfalls to avoid
 
 ### Q&A (5 min)
 
@@ -98,20 +98,22 @@ python -c "import sbi; import torch; print('✅ Setup complete!')"
 euroscipy-2025-sbi-tutorial/
 ├── README.md                     # This file
 ├── pyproject.toml                # Project dependencies
+└── materials/
+    ├── 2024-08-30-EuroSciPy2024-SBI.pdf  # Optional pre-reading
+    └── references.md                     # Further resources
 ├── slides/                       # Presentation slides
 │   └── sbi_tutorial.md
+    ├── sbi_tutorial.pdf
 ├── src/
 │   ├── 00_setup_test.py          # Verify installation
 │   ├── 01_first_inference.ipynb  # Exercise 1
 │   ├── 02_diagnostics.ipynb      # Exercise 2
-│   ├── 03_your_problem.ipynb     # Exercise 3
+│   ├── 03_your_sbi_problem.ipynb     # Exercise 3
 │   └── simulators/               # Example simulators
 │       ├── lotka_volterra.py
 │       ├── ball_throw.py
 │       └── sir_model.py
-└── materials/
-    ├── 2024-08-30-EuroSciPy2024-SBI.pdf  # Optional pre-reading
-    └── references.md                     # Further resources, TBD.
+    └── utils.py                  # Plotting utils
 
 ```
 
@@ -135,10 +137,10 @@ euroscipy-2025-sbi-tutorial/
 
 ## 🔗 Links
 
-- [sbi documentation](https://sbi.readthedocs.io/en/latest/)
-- [sbi paper](https://joss.theoj.org/papers/10.21105/joss.07754)
-- [sbi overview blog post](https://transferlab.ai/series/simulation-based-inference/)
-- [Tutorial paper (preprint)](https://arxiv.org/abs/2508.12939)
+- [`sbi` documentation](https://sbi.readthedocs.io/en/latest/)
+- [`sbi` paper](https://joss.theoj.org/papers/10.21105/joss.07754)
+- [SBI overview blog post](https://transferlab.ai/series/simulation-based-inference/)
+- [SBI Tutorial paper (preprint)](https://arxiv.org/abs/2508.12939)
 
 ## Acknowledgments
 
